@@ -36,50 +36,60 @@ You passed the challenge. Great job!
 ## 🛠 Tech Stack
 * Language: Python 3.8+
 * Libraries:
-  * scikit-learn (for KNN with NearestNeighbors)
+  * TensorFlow (for Linear Regression model with `Sequential` API)
   * Pandas (for data preprocessing and manipulation)
   * NumPy (for numerical operations)
-  * Matplotlib/Seaborn (optional, for dataset visualization)
+  * Scikit-learn (for `LabelEncoder`, `StandardScaler`, and `train_test_split`)
+  * Matplotlib (for visualization)
 * Tools:
   * Google Colab for development, training, and testing (with GPU support)
-  * GitHub for version control (optional, if you export the notebook)
+  * GitHub for version control
 
 ---
 
 ## 📂 Project Structure
-The project is a single Google Colab notebook (fcc_book_recommendation_knn.ipynb) with cells for:
-* Importing libraries (scikit-learn, Pandas, etc.)
-* Loading and preprocessing the Book-Crossings dataset
-* Filtering users (<200 ratings) and books (<100 ratings)
-* Building the KNN model using NearestNeighbors
-* Defining the get_recommends function
-* Testing the model with the provided test cell
+The project includes:
+* `HealthcareCostsPredictor.py`: A class-based Python script with methods for loading, preprocessing, building, training, evaluating, and visualizing the model.
+* `insurance.csv`: The dataset (downloaded automatically from [https://cdn.freecodecamp.org/project-data/health-costs/insurance.csv](https://cdn.freecodecamp.org/project-data/health-costs/insurance.csv)).
+* Colab Notebook (optional): A four-cell notebook implementing the same logic sequentially (import libraries, load data, preprocess/train, evaluate/visualize).
+* `README.md`: This file.
 
 Dataset structure:
 ```bash
-Books.csv: Contains book metadata (ISBN, title, etc.)
-Ratings.csv: Contains user ratings (User-ID, ISBN, rating)
-Users.csv: Contains user information (User-ID, etc.)
+insurance.csv: Contains features (age, sex, bmi, children, smoker, region) and target (expenses)
 ```
 
 ---
 
 ## Usage
-1. Open the provided Colab notebook: https://colab.research.google.com/github/freeCodeCamp/boilerplate-book-recommendation-engine/blob/master/fcc_book_recommendation_knn.ipynb
+### Python Script
+1. Save `HealthcareCostsPredictor.py` locally.
+2. Install required libraries:
+   ```bash
+   pip install pandas numpy tensorflow scikit-learn matplotlib
+   ```
+3. Run the script:
+   ```bash
+   python HealthcareCostsPredictor.py
+   ```
+4. The script will:
+   - Download the dataset if not already present
+   - Preprocess data (encode categorical variables, normalize features, split into 80% train/20% test)
+   - Build and train a TensorFlow Linear Regression model
+   - Evaluate the model (prints MAE, typically ~2000-2500)
+   - Display a scatter plot of predicted vs. actual expenses
+### Colab Notebook (Optional)
+1. Open the Colab notebook: [Link to your notebook, e.g., https://colab.research.google.com/drive/1YhqiUuH22rZCzQpfbL8msT8cHZ4J_uGR]
 2. Save a copy to your Google Drive (**File > Save a copy in Drive**).
 3. Enable GPU for faster training (**Runtime > Change runtime type > GPU**).
 4. Run all cells sequentially:
-    - Cells 1-3: Import libraries and load the Book-Crossings dataset.
-    - Cell 4: Preprocess data (filter users and books based on rating thresholds).
-    - Cell 5: Create a pivot table of user-book ratings and fit the KNN model.
-    - Cell 6: Define the get_recommends function to return similar books.
-    - Cell 7: Test the function with the provided test case.
-5. If the test fails, debug the get_recommends function by checking:
-    - Data filtering logic (thresholds for users and books)
-    - KNN model parameters (e.g., distance metric, number of neighbors)
-    - Handling of edge cases (e.g., book not found in dataset)
----
+   - Cell 1: Import libraries and install tensorflow-docs
+   - Cell 2: Load the dataset
+   - Cell 3: Preprocess data and train the model
+   - Cell 4: Evaluate the model and visualize results
+5. Ensure the notebook’s sharing settings are “anyone with the link” for submission.
 
+---
 ## Contributing
 Contributions are welcome! To contribute:
 1. Fork the repository (if you export the notebook to GitHub): https://github.com/AliToori/Book-Recommendation-Engine-KNN
