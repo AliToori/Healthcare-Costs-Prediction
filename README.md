@@ -78,7 +78,6 @@ insurance.csv: Contains features (age, sex, bmi, children, smoker, region) and t
    - Build and train a TensorFlow Linear Regression model
    - Evaluate the model (prints MAE, typically ~2000-2500)
    - Display a scatter plot of predicted vs. actual expenses
-
 ### Colab Notebook (Optional)
 1. Open the Colab notebook: [Link to your notebook, e.g., https://colab.research.google.com/drive/1YhqiUuH22rZCzQpfbL8msT8cHZ4J_uGR]
 2. Save a copy to your Google Drive (**File > Save a copy in Drive**).
@@ -91,7 +90,6 @@ insurance.csv: Contains features (age, sex, bmi, children, smoker, region) and t
 5. Ensure the notebook’s sharing settings are “anyone with the link” for submission.
 
 ---
-
 ## Contributing
 Contributions are welcome! To contribute:
 1. Fork the repository (if you export the notebook to GitHub): https://github.com/AliToori/Book-Recommendation-Engine-KNN
