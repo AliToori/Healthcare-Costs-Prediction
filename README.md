@@ -13,26 +13,20 @@ This project implements a healthcare costs prediction system using a Linear Regr
 
 ### Project Overview
 The project involves:
-1. Loading and preprocessing the Book-Crossings dataset, filtering out users with fewer than 200 ratings and books with fewer than 100 ratings to ensure statistical significance.
-2. Using NearestNeighbors from scikit-learn to build a model that measures the “closeness” of books based on user ratings.
-3. Creating a get_recommends function that takes a book title as input and returns a list containing the input title and a nested list of five recommended books with their distances from the input book.
-4. Ensuring the model meets the challenge requirements by passing the provided test case, which checks the recommendations for "The Queen of the Damned (Vampire Chronicles (Paperback))".
-5. Optionally visualizing the dataset to understand rating distributions (not implemented in the core solution but mentioned as an option).
+1. Loading and preprocessing the insurance dataset, encoding categorical variables (sex, smoker, region), and normalizing numerical features.
+2. Splitting the dataset into 80% training and 20% testing sets, with the target variable (`expenses`) separated as labels.
+3. Building a Linear Regression model using TensorFlow’s `Sequential` API with a single dense layer.
+4. Training the model to minimize MAE and evaluating it to ensure MAE < 3500 on the test set.
+5. Visualizing predicted vs. actual expenses using a scatter plot.
+6. Implementing the logic in a modular, class-based Python script (`HealthcareCostsPredictor.py`) for reusability.
 
-Example output for `get_recommends("The Queen of the Damned (Vampire Chronicles (Paperback))")`:
+Example output from the evaluation:
+```bash
+Testing set Mean Abs Error: 2456.78 expenses
+You passed the challenge. Great job!
+```
+(A scatter plot shows predicted vs. actual expenses with a 1:1 reference line.)
 
-``` python
-[
-  'The Queen of the Damned (Vampire Chronicles (Paperback))',
-  [
-    ['Catch 22', 0.793983519077301], 
-    ['The Witching Hour (Lives of the Mayfair Witches)', 0.7448656558990479], 
-    ['Interview with the Vampire', 0.7345068454742432],
-    ['The Tale of the Body Thief (Vampire Chronicles (Paperback))', 0.5376338362693787],
-    ['The Vampire Lestat (Vampire Chronicles, Book II)', 0.5178412199020386]
-  ]
-]
-````
 ---
 
 ### [Google Colab Project Link](https://colab.research.google.com/drive/1YhqiUuH22rZCzQpfbL8msT8cHZ4J_uGR#scrollTo=Xe7RXH3N3CWU)
@@ -42,53 +36,65 @@ Example output for `get_recommends("The Queen of the Damned (Vampire Chronicles 
 ## 🛠 Tech Stack
 * Language: Python 3.8+
 * Libraries:
-  * scikit-learn (for KNN with NearestNeighbors)
+  * TensorFlow (for Linear Regression model with `Sequential` API)
   * Pandas (for data preprocessing and manipulation)
   * NumPy (for numerical operations)
-  * Matplotlib/Seaborn (optional, for dataset visualization)
+  * Scikit-learn (for `LabelEncoder`, `StandardScaler`, and `train_test_split`)
+  * Matplotlib (for visualization)
 * Tools:
   * Google Colab for development, training, and testing (with GPU support)
-  * GitHub for version control (optional, if you export the notebook)
+  * GitHub for version control
 
 ---
 
 ## 📂 Project Structure
-The project is a single Google Colab notebook (fcc_book_recommendation_knn.ipynb) with cells for:
-* Importing libraries (scikit-learn, Pandas, etc.)
-* Loading and preprocessing the Book-Crossings dataset
-* Filtering users (<200 ratings) and books (<100 ratings)
-* Building the KNN model using NearestNeighbors
-* Defining the get_recommends function
-* Testing the model with the provided test cell
+The project includes:
+* `HealthcareCostsPredictor.py`: A class-based Python script with methods for loading, preprocessing, building, training, evaluating, and visualizing the model.
+* `insurance.csv`: The dataset (downloaded automatically from [https://cdn.freecodecamp.org/project-data/health-costs/insurance.csv](https://cdn.freecodecamp.org/project-data/health-costs/insurance.csv)).
+* Colab Notebook (optional): A four-cell notebook implementing the same logic sequentially (import libraries, load data, preprocess/train, evaluate/visualize).
+* `README.md`: This file.
 
 Dataset structure:
 ```bash
-Books.csv: Contains book metadata (ISBN, title, etc.)
-Ratings.csv: Contains user ratings (User-ID, ISBN, rating)
-Users.csv: Contains user information (User-ID, etc.)
+insurance.csv: Contains features (age, sex, bmi, children, smoker, region) and target (expenses)
 ```
 
 ---
 
 ## Usage
-1. Open the provided Colab notebook: https://colab.research.google.com/github/freeCodeCamp/boilerplate-book-recommendation-engine/blob/master/fcc_book_recommendation_knn.ipynb
+### Python Script
+1. Save `HealthcareCostsPredictor.py` locally.
+2. Install required libraries:
+   ```bash
+   pip install pandas numpy tensorflow scikit-learn matplotlib
+   ```
+3. Run the script:
+   ```bash
+   python HealthcareCostsPredictor.py
+   ```
+4. The script will:
+   - Download the dataset if not already present
+   - Preprocess data (encode categorical variables, normalize features, split into 80% train/20% test)
+   - Build and train a TensorFlow Linear Regression model
+   - Evaluate the model (prints MAE, typically ~2000-2500)
+   - Display a scatter plot of predicted vs. actual expenses
+
+### Colab Notebook (Optional)
+1. Open the Colab notebook: [Link to your notebook, e.g., https://colab.research.google.com/drive/1YhqiUuH22rZCzQpfbL8msT8cHZ4J_uGR]
 2. Save a copy to your Google Drive (**File > Save a copy in Drive**).
 3. Enable GPU for faster training (**Runtime > Change runtime type > GPU**).
 4. Run all cells sequentially:
-    - Cells 1-3: Import libraries and load the Book-Crossings dataset.
-    - Cell 4: Preprocess data (filter users and books based on rating thresholds).
-    - Cell 5: Create a pivot table of user-book ratings and fit the KNN model.
-    - Cell 6: Define the get_recommends function to return similar books.
-    - Cell 7: Test the function with the provided test case.
-5. If the test fails, debug the get_recommends function by checking:
-    - Data filtering logic (thresholds for users and books)
-    - KNN model parameters (e.g., distance metric, number of neighbors)
-    - Handling of edge cases (e.g., book not found in dataset)
+   - Cell 1: Import libraries and install tensorflow-docs
+   - Cell 2: Load the dataset
+   - Cell 3: Preprocess data and train the model
+   - Cell 4: Evaluate the model and visualize results
+5. Ensure the notebook’s sharing settings are “anyone with the link” for submission.
+
 ---
 
 ## Contributing
 Contributions are welcome! To contribute:
-1. Fork the repository (if you export the notebook to GitHub): https://github.com/AliToori/Book-Recommendation-Engine-KNN
+1. Fork the repository: [https://github.com/AliToori/Healthcare-Costs-Prediction](https://github.com/AliToori/Healthcare-Costs-Prediction)
 2. Create a feature branch (`git checkout -b feature-name`).
 3. Commit changes (`git commit -m "Add feature"`).
 4. Push to the branch (`git push origin feature-name`).
@@ -99,11 +105,11 @@ Alternatively, share an updated Colab notebook link via GitHub issues or Telegra
 
 ## 🙏 Acknowledgments
 - Built as part of the [freeCodeCamp Machine Learning with Python](https://www.freecodecamp.org/learn/machine-learning-with-python) certification.
-- Uses TensorFlow/Keras for model development and Google Colab for cloud-based execution.
+- Uses TensorFlow for model development and Google Colab for cloud-based execution.
 - Special thanks to freeCodeCamp for providing the challenge framework and dataset.
 
 ## 🆘 Support
-For questions, issues, or feedback:
+For questions, issues, or feedback:  
 
 📺 YouTube: [@AliToori](https://youtube.com/@AliToori)  
 💬 Telegram: [@AliToori](https://t.me/@AliToori)  
