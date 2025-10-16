@@ -28,7 +28,6 @@ You passed the challenge. Great job!
 (A scatter plot shows predicted vs. actual expenses with a 1:1 reference line.)
 
 ---
----
 
 ### [Google Colab Project Link](https://colab.research.google.com/drive/1YhqiUuH22rZCzQpfbL8msT8cHZ4J_uGR#scrollTo=Xe7RXH3N3CWU)
 
@@ -37,13 +36,14 @@ You passed the challenge. Great job!
 ## 🛠 Tech Stack
 * Language: Python 3.8+
 * Libraries:
-  * scikit-learn (for KNN with NearestNeighbors)
+  * TensorFlow (for Linear Regression model with `Sequential` API)
   * Pandas (for data preprocessing and manipulation)
   * NumPy (for numerical operations)
-  * Matplotlib/Seaborn (optional, for dataset visualization)
+  * Scikit-learn (for `LabelEncoder`, `StandardScaler`, and `train_test_split`)
+  * Matplotlib (for visualization)
 * Tools:
   * Google Colab for development, training, and testing (with GPU support)
-  * GitHub for version control (optional, if you export the notebook)
+  * GitHub for version control
 
 ---
 
