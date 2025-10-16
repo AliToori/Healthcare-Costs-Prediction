@@ -35,7 +35,7 @@ Example output for `get_recommends("The Queen of the Damned (Vampire Chronicles 
 ````
 ---
 
-### [Google Colab Project Link](https://colab.research.google.com/drive/1oHGqYm4gnRgDVoyohDlvuEY-nGrlGUAJ#scrollTo=iAQGqqO_vo4d)
+### [Google Colab Project Link](https://colab.research.google.com/drive/1YhqiUuH22rZCzQpfbL8msT8cHZ4J_uGR#scrollTo=Xe7RXH3N3CWU)
 
 ---
 
