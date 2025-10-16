@@ -13,20 +13,26 @@ This project implements a healthcare costs prediction system using a Linear Regr
 
 ### Project Overview
 The project involves:
-1. Loading and preprocessing the insurance dataset, encoding categorical variables (sex, smoker, region), and normalizing numerical features.
-2. Splitting the dataset into 80% training and 20% testing sets, with the target variable (`expenses`) separated as labels.
-3. Building a Linear Regression model using TensorFlow’s `Sequential` API with a single dense layer.
-4. Training the model to minimize MAE and evaluating it to ensure MAE < 3500 on the test set.
-5. Visualizing predicted vs. actual expenses using a scatter plot.
-6. Implementing the logic in a modular, class-based Python script (`HealthcareCostsPredictor.py`) for reusability.
+1. Loading and preprocessing the Book-Crossings dataset, filtering out users with fewer than 200 ratings and books with fewer than 100 ratings to ensure statistical significance.
+2. Using NearestNeighbors from scikit-learn to build a model that measures the “closeness” of books based on user ratings.
+3. Creating a get_recommends function that takes a book title as input and returns a list containing the input title and a nested list of five recommended books with their distances from the input book.
+4. Ensuring the model meets the challenge requirements by passing the provided test case, which checks the recommendations for "The Queen of the Damned (Vampire Chronicles (Paperback))".
+5. Optionally visualizing the dataset to understand rating distributions (not implemented in the core solution but mentioned as an option).
 
-Example output from the evaluation:
-```bash
-Testing set Mean Abs Error: 2456.78 expenses
-You passed the challenge. Great job!
-```
-(A scatter plot shows predicted vs. actual expenses with a 1:1 reference line.)
+Example output for `get_recommends("The Queen of the Damned (Vampire Chronicles (Paperback))")`:
 
+``` python
+[
+  'The Queen of the Damned (Vampire Chronicles (Paperback))',
+  [
+    ['Catch 22', 0.793983519077301], 
+    ['The Witching Hour (Lives of the Mayfair Witches)', 0.7448656558990479], 
+    ['Interview with the Vampire', 0.7345068454742432],
+    ['The Tale of the Body Thief (Vampire Chronicles (Paperback))', 0.5376338362693787],
+    ['The Vampire Lestat (Vampire Chronicles, Book II)', 0.5178412199020386]
+  ]
+]
+````
 ---
 
 ### [Google Colab Project Link](https://colab.research.google.com/drive/1YhqiUuH22rZCzQpfbL8msT8cHZ4J_uGR#scrollTo=Xe7RXH3N3CWU)
@@ -36,14 +42,13 @@ You passed the challenge. Great job!
 ## 🛠 Tech Stack
 * Language: Python 3.8+
 * Libraries:
-  * TensorFlow (for Linear Regression model with `Sequential` API)
+  * scikit-learn (for KNN with NearestNeighbors)
   * Pandas (for data preprocessing and manipulation)
   * NumPy (for numerical operations)
-  * Scikit-learn (for `LabelEncoder`, `StandardScaler`, and `train_test_split`)
-  * Matplotlib (for visualization)
+  * Matplotlib/Seaborn (optional, for dataset visualization)
 * Tools:
   * Google Colab for development, training, and testing (with GPU support)
-  * GitHub for version control
+  * GitHub for version control (optional, if you export the notebook)
 
 ---
 
