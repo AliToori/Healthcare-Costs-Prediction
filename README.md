@@ -79,22 +79,9 @@ insurance.csv: Contains features (age, sex, bmi, children, smoker, region) and t
    - Evaluate the model (prints MAE, typically ~2000-2500)
    - Display a scatter plot of predicted vs. actual expenses
 
-### Colab Notebook (Optional)
-1. Open the Colab notebook: [Link to your notebook, e.g., https://colab.research.google.com/drive/1YhqiUuH22rZCzQpfbL8msT8cHZ4J_uGR]
-2. Save a copy to your Google Drive (**File > Save a copy in Drive**).
-3. Enable GPU for faster training (**Runtime > Change runtime type > GPU**).
-4. Run all cells sequentially:
-   - Cell 1: Import libraries and install tensorflow-docs
-   - Cell 2: Load the dataset
-   - Cell 3: Preprocess data and train the model
-   - Cell 4: Evaluate the model and visualize results
-5. Ensure the notebook’s sharing settings are “anyone with the link” for submission.
-
----
-
 ## Contributing
 Contributions are welcome! To contribute:
-1. Fork the repository: [https://github.com/AliToori/Healthcare-Costs-Prediction](https://github.com/AliToori/Healthcare-Costs-Prediction)
+1. Fork the repository (if you export the notebook to GitHub): https://github.com/AliToori/Book-Recommendation-Engine-KNN
 2. Create a feature branch (`git checkout -b feature-name`).
 3. Commit changes (`git commit -m "Add feature"`).
 4. Push to the branch (`git push origin feature-name`).
