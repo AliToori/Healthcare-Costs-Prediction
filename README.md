@@ -1,6 +1,6 @@
-# Healthcare Costs Prediction using TensorFlow Linear Regression
+# Book Recommendation Engine using KNN
 
-This project implements a healthcare costs prediction system using a Linear Regression model in TensorFlow, developed as part of the freeCodeCamp Machine Learning with Python certification. The goal is to predict healthcare expenses based on features like age, sex, BMI, children, smoker status, and region, achieving a Mean Absolute Error (MAE) under $3500 on the test dataset, using the insurance dataset.
+This project implements a book recommendation system using the K-Nearest Neighbors (KNN) algorithm, developed as part of the freeCodeCamp Machine Learning with Python certification. The goal is to create a recommendation engine using scikit-learn’s NearestNeighbors in Google Colab that recommends five similar books based on user ratings for a given book title, using the Book-Crossings dataset with 1.1 million ratings of 270,000 books by 90,000 users.
 
 ---
 
