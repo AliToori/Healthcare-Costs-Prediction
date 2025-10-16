@@ -36,27 +36,30 @@ You passed the challenge. Great job!
 ## 🛠 Tech Stack
 * Language: Python 3.8+
 * Libraries:
-  * TensorFlow (for Linear Regression model with `Sequential` API)
+  * scikit-learn (for KNN with NearestNeighbors)
   * Pandas (for data preprocessing and manipulation)
   * NumPy (for numerical operations)
-  * Scikit-learn (for `LabelEncoder`, `StandardScaler`, and `train_test_split`)
-  * Matplotlib (for visualization)
+  * Matplotlib/Seaborn (optional, for dataset visualization)
 * Tools:
   * Google Colab for development, training, and testing (with GPU support)
-  * GitHub for version control
+  * GitHub for version control (optional, if you export the notebook)
 
 ---
 
 ## 📂 Project Structure
-The project includes:
-* `HealthcareCostsPredictor.py`: A class-based Python script with methods for loading, preprocessing, building, training, evaluating, and visualizing the model.
-* `insurance.csv`: The dataset (downloaded automatically from [https://cdn.freecodecamp.org/project-data/health-costs/insurance.csv](https://cdn.freecodecamp.org/project-data/health-costs/insurance.csv)).
-* Colab Notebook (optional): A four-cell notebook implementing the same logic sequentially (import libraries, load data, preprocess/train, evaluate/visualize).
-* `README.md`: This file.
+The project is a single Google Colab notebook (fcc_book_recommendation_knn.ipynb) with cells for:
+* Importing libraries (scikit-learn, Pandas, etc.)
+* Loading and preprocessing the Book-Crossings dataset
+* Filtering users (<200 ratings) and books (<100 ratings)
+* Building the KNN model using NearestNeighbors
+* Defining the get_recommends function
+* Testing the model with the provided test cell
 
 Dataset structure:
 ```bash
-insurance.csv: Contains features (age, sex, bmi, children, smoker, region) and target (expenses)
+Books.csv: Contains book metadata (ISBN, title, etc.)
+Ratings.csv: Contains user ratings (User-ID, ISBN, rating)
+Users.csv: Contains user information (User-ID, etc.)
 ```
 
 ---
