@@ -78,7 +78,6 @@ insurance.csv: Contains features (age, sex, bmi, children, smoker, region) and t
    - Build and train a TensorFlow Linear Regression model
    - Evaluate the model (prints MAE, typically ~2000-2500)
    - Display a scatter plot of predicted vs. actual expenses
-
 ### Colab Notebook (Optional)
 1. Open the Colab notebook: [Link to your notebook, e.g., https://colab.research.google.com/drive/1YhqiUuH22rZCzQpfbL8msT8cHZ4J_uGR]
 2. Save a copy to your Google Drive (**File > Save a copy in Drive**).
@@ -91,10 +90,9 @@ insurance.csv: Contains features (age, sex, bmi, children, smoker, region) and t
 5. Ensure the notebook’s sharing settings are “anyone with the link” for submission.
 
 ---
-
 ## Contributing
 Contributions are welcome! To contribute:
-1. Fork the repository: [https://github.com/AliToori/Healthcare-Costs-Prediction](https://github.com/AliToori/Healthcare-Costs-Prediction)
+1. Fork the repository (if you export the notebook to GitHub): https://github.com/AliToori/Book-Recommendation-Engine-KNN
 2. Create a feature branch (`git checkout -b feature-name`).
 3. Commit changes (`git commit -m "Add feature"`).
 4. Push to the branch (`git push origin feature-name`).
@@ -105,7 +103,7 @@ Alternatively, share an updated Colab notebook link via GitHub issues or Telegra
 
 ## 🙏 Acknowledgments
 - Built as part of the [freeCodeCamp Machine Learning with Python](https://www.freecodecamp.org/learn/machine-learning-with-python) certification.
-- Uses TensorFlow for model development and Google Colab for cloud-based execution.
+- Uses TensorFlow/Keras for model development and Google Colab for cloud-based execution.
 - Special thanks to freeCodeCamp for providing the challenge framework and dataset.
 
 ## 🆘 Support
