@@ -105,7 +105,7 @@ Alternatively, share an updated Colab notebook link via GitHub issues or Telegra
 
 ## 🙏 Acknowledgments
 - Built as part of the [freeCodeCamp Machine Learning with Python](https://www.freecodecamp.org/learn/machine-learning-with-python) certification.
-- Uses TensorFlow for model development and Google Colab for cloud-based execution.
+- Uses TensorFlow/Keras for model development and Google Colab for cloud-based execution.
 - Special thanks to freeCodeCamp for providing the challenge framework and dataset.
 
 ## 🆘 Support
