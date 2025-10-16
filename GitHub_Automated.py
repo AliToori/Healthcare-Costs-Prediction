@@ -95,7 +95,7 @@ def main():
             continue
 
         # Commit with message
-        commit_msg = f"{base_commit_msg} (automated {action_type} {N} times)"
+        commit_msg = base_commit_msg
         print(f"Committing with message: {commit_msg}")
         result = subprocess.run(['git', 'commit', '-m', commit_msg, '--allow-empty'], capture_output=True, text=True)
         if result.returncode != 0:
