@@ -34,7 +34,7 @@ You passed the challenge. Great job!
 ---
 
 ## 🛠 Tech Stack
-* Language: Python 3.8+
+* Language: Python 3.10+
 * Libraries:
   * TensorFlow (for Linear Regression model with `Sequential` API)
   * Pandas (for data preprocessing and manipulation)
