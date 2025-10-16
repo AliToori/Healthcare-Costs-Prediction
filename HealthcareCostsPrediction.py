@@ -1,121 +1,169 @@
-import numpy as np
 import pandas as pd
-from scipy.sparse import csr_matrix
-from sklearn.neighbors import NearestNeighbors
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import urllib.request
+import os
 
 
-class BookRecommender:
-    def __init__(self, books_file='BX-Books.csv', ratings_file='BX-Book-Ratings.csv'):
-        """Initialize the recommender with dataset file paths and load data."""
-        self.books_file = books_file
-        self.ratings_file = ratings_file
-        self.df_books = None
-        self.df_ratings = None
-        self.pivot_table = None
-        self.sparse_matrix = None
+class HealthCostPredictor:
+    """A class to predict healthcare costs using TensorFlow Linear Regression."""
+
+    def __init__(self, data_url):
+        """Initialize with dataset URL and set up attributes."""
+        self.data_url = data_url
+        self.dataset = None
+        self.train_dataset = None
+        self.test_dataset = None
+        self.train_labels = None
+        self.test_labels = None
         self.model = None
-        self.load_data()
-        self.preprocess_data()
-        self.train_model()
+        self.le_sex = LabelEncoder()
+        self.le_smoker = LabelEncoder()
+        self.le_region = LabelEncoder()
+        self.scaler = StandardScaler()
 
     def load_data(self):
-        """Load the Book-Crossings dataset into dataframes."""
-        self.df_books = pd.read_csv(
-            self.books_file,
-            encoding="ISO-8859-1",
-            sep=";",
-            header=0,
-            names=['isbn', 'title', 'author'],
-            usecols=['isbn', 'title', 'author'],
-            dtype={'isbn': 'str', 'title': 'str', 'author': 'str'}
-        )
-
-        self.df_ratings = pd.read_csv(
-            self.ratings_file,
-            encoding="ISO-8859-1",
-            sep=";",
-            header=0,
-            names=['user', 'isbn', 'rating'],
-            usecols=['user', 'isbn', 'rating'],
-            dtype={'user': 'int32', 'isbn': 'str', 'rating': 'float32'}
-        )
+        """Download and load the insurance dataset."""
+        local_file = 'insurance.csv'
+        try:
+            if not os.path.exists(local_file):
+                print("Downloading dataset...")
+                urllib.request.urlretrieve(self.data_url, local_file)
+            self.dataset = pd.read_csv(local_file)
+            print("Dataset Head:")
+            print(self.dataset.head())
+            print("\nDataset Info:")
+            print(self.dataset.info())
+        except Exception as e:
+            raise RuntimeError(f"Failed to load data: {e}")
 
     def preprocess_data(self):
-        """Filter users and books, merge data, and create pivot table."""
-        # Filter users with at least 200 ratings
-        user_counts = self.df_ratings['user'].value_counts()
-        self.df_ratings = self.df_ratings[self.df_ratings['user'].isin(user_counts[user_counts >= 200].index)]
+        """Encode categorical variables, split data, and normalize features."""
+        if self.dataset is None:
+            raise ValueError("Data not loaded. Run load_data() first.")
 
-        # Filter books with at least 100 ratings
-        book_counts = self.df_ratings['isbn'].value_counts()
-        self.df_ratings = self.df_ratings[self.df_ratings['isbn'].isin(book_counts[book_counts >= 100].index)]
+        try:
+            # Encode categorical columns
+            self.dataset['sex'] = self.le_sex.fit_transform(self.dataset['sex'])
+            self.dataset['smoker'] = self.le_smoker.fit_transform(self.dataset['smoker'])
+            self.dataset['region'] = self.le_region.fit_transform(self.dataset['region'])
 
-        # Merge ratings with book titles
-        df = self.df_ratings.merge(self.df_books[['isbn', 'title']], on='isbn')
+            # Separate features and target
+            self.train_dataset = self.dataset.drop('expenses', axis=1)
+            self.train_labels = self.dataset.pop('expenses')
 
-        # Create a pivot table of users vs. books with ratings as values
-        self.pivot_table = df.pivot_table(index='title', columns='user', values='rating').fillna(0)
+            # Split data (80% train, 20% test)
+            self.train_dataset, self.test_dataset, self.train_labels, self.test_labels = train_test_split(
+                self.train_dataset, self.train_labels, test_size=0.2, random_state=42
+            )
 
-        # Convert to sparse matrix for efficiency
-        self.sparse_matrix = csr_matrix(self.pivot_table.values)
+            # Normalize features
+            self.train_dataset = self.scaler.fit_transform(self.train_dataset)
+            self.test_dataset = self.scaler.transform(self.test_dataset)
+
+            print("Train dataset shape:", self.train_dataset.shape)
+            print("Test dataset shape:", self.test_dataset.shape)
+            print("Train labels shape:", self.train_labels.shape)
+            print("Test labels shape:", self.test_labels.shape)
+        except Exception as e:
+            raise RuntimeError(f"Failed to preprocess data: {e}")
+
+    def build_model(self):
+        """Build and compile the TensorFlow Linear Regression model."""
+        try:
+            self.model = tf.keras.Sequential([
+                layers.Dense(units=1, input_shape=[self.train_dataset.shape[1]])
+            ])
+            self.model.compile(
+                optimizer=tf.keras.optimizers.Adam(learning_rate=0.1),
+                loss='mean_absolute_error',
+                metrics=['mae', 'mse']
+            )
+            print("Model built and compiled.")
+        except Exception as e:
+            raise RuntimeError(f"Failed to build model: {e}")
 
     def train_model(self):
-        """Train the KNN model using cosine distance."""
-        self.model = NearestNeighbors(metric='cosine', algorithm='brute', n_neighbors=6)
-        self.model.fit(self.sparse_matrix)
+        """Train the model on the training data."""
+        if self.train_dataset is None or self.train_labels is None:
+            raise ValueError("Training data not prepared. Run preprocess_data() first.")
+        if self.model is None:
+            raise ValueError("Model not built. Run build_model() first.")
 
-    def get_recommends(self, book=""):
-        """Return 5 recommended books with distances for the given book title."""
-        # Check if the book exists in the dataset
-        if book not in self.pivot_table.index:
-            print(f"Book '{book}' not found in dataset")
-            return [book, []]
+        try:
+            history = self.model.fit(
+                self.train_dataset, self.train_labels,
+                epochs=100,
+                validation_split=0.2,
+                verbose=0
+            )
+            print("Training completed. Final training MAE:", history.history['mae'][-1])
+            return history
+        except Exception as e:
+            raise RuntimeError(f"Failed to train model: {e}")
 
-        # Get the index of the book in the pivot table
-        book_idx = self.pivot_table.index.get_loc(book)
+    def evaluate_model(self):
+        """Evaluate the model on test data and check MAE requirement."""
+        if self.test_dataset is None or self.test_labels is None:
+            raise ValueError("Test data not prepared. Run preprocess_data() first.")
+        if self.model is None:
+            raise ValueError("Model not built. Run build_model() first.")
 
-        # Find the 6 nearest neighbors (including the book itself)
-        distances, indices = self.model.kneighbors(self.sparse_matrix[book_idx], n_neighbors=6)
+        try:
+            loss, mae, mse = self.model.evaluate(self.test_dataset, self.test_labels, verbose=2)
+            print("Testing set Mean Abs Error: {:5.2f} expenses".format(mae))
 
-        # Prepare the list of recommended books with distances
-        recommended_books = []
-        for i in range(1, 6):  # Get top 5 neighbors (skip the book itself)
-            neighbor_idx = indices[0][i]
-            neighbor_title = self.pivot_table.index[neighbor_idx]
-            neighbor_distance = float(distances[0][i])
-            recommended_books.append([neighbor_title, neighbor_distance])
+            if mae < 3500:
+                print("You passed the challenge. Great job!")
+            else:
+                print("The Mean Abs Error must be less than 3500. Keep trying.")
 
-        # Sort by distance (descending) to match test case
-        recommended_books = sorted(recommended_books, key=lambda x: x[1], reverse=True)
+            return mae
+        except Exception as e:
+            raise RuntimeError(f"Failed to evaluate model: {e}")
 
-        # Debug: Print recommendations
-        print(f"Recommendations for '{book}': {recommended_books}")
+    def visualize_results(self):
+        """Visualize predicted vs actual expenses."""
+        if self.test_dataset is None or self.test_labels is None:
+            raise ValueError("Test data not prepared. Run preprocess_data() first.")
+        if self.model is None:
+            raise ValueError("Model not built. Run build_model() first.")
 
-        return [book, recommended_books]
+        try:
+            test_predictions = self.model.predict(self.test_dataset).flatten()
+            plt.figure(figsize=(8, 8))
+            plt.scatter(self.test_labels, test_predictions, alpha=0.5)
+            plt.xlabel('True values (expenses)')
+            plt.ylabel('Predictions (expenses)')
+            lims = [0, 50000]
+            plt.xlim(lims)
+            plt.ylim(lims)
+            plt.plot(lims, lims, 'r--')
+            plt.gca().set_aspect('equal', adjustable='box')
+            plt.title('Predicted vs Actual Healthcare Costs')
+            plt.show()
+        except Exception as e:
+            raise RuntimeError(f"Failed to visualize results: {e}")
 
-
-def test_book_recommendation():
-    """Test the recommendation function for the challenge."""
-    recommender = BookRecommender()
-    test_pass = True
-    recommends = recommender.get_recommends("Where the Heart Is (Oprah's Book Club (Paperback))")
-    if recommends[0] != "Where the Heart Is (Oprah's Book Club (Paperback))":
-        test_pass = False
-    recommended_books = ["I'll Be Seeing You", 'The Weight of Water', 'The Surgeon', 'I Know This Much Is True']
-    recommended_books_dist = [0.8, 0.77, 0.77, 0.77]
-    for i in range(2):  # Check only the first two books for exact matches
-        if recommends[1][i][0] not in recommended_books:
-            print(f"Book {recommends[1][i][0]} not in expected list: {recommended_books}")
-            test_pass = False
-        if abs(recommends[1][i][1] - recommended_books_dist[i]) >= 0.05:
-            print(
-                f"Distance {recommends[1][i][1]} for {recommends[1][i][0]} not within 0.05 of {recommended_books_dist[i]}")
-            test_pass = False
-    if test_pass:
-        print("You passed the challenge! 🎉🎉🎉🎉🎉")
-    else:
-        print("You haven't passed yet. Keep trying!")
+    def run(self):
+        """Run the full pipeline."""
+        try:
+            self.load_data()
+            self.preprocess_data()
+            self.build_model()
+            self.train_model()
+            self.evaluate_model()
+            self.visualize_results()
+        except Exception as e:
+            print(f"Pipeline failed: {e}")
 
 
 if __name__ == "__main__":
-    test_book_recommendation()
+    url = 'https://cdn.freecodecamp.org/project-data/health-costs/insurance.csv'
+    predictor = HealthCostPredictor(url)
+    predictor.run()
