@@ -28,6 +28,7 @@ You passed the challenge. Great job!
 (A scatter plot shows predicted vs. actual expenses with a 1:1 reference line.)
 
 ---
+---
 
 ### [Google Colab Project Link](https://colab.research.google.com/drive/1YhqiUuH22rZCzQpfbL8msT8cHZ4J_uGR#scrollTo=Xe7RXH3N3CWU)
 
