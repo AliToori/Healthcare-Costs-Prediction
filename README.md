@@ -109,7 +109,7 @@ Alternatively, share an updated Colab notebook link via GitHub issues or Telegra
 - Special thanks to freeCodeCamp for providing the challenge framework and dataset.
 
 ## 🆘 Support
-For questions, issues, or feedback:
+For questions, issues, or feedback:  
 
 📺 YouTube: [@AliToori](https://youtube.com/@AliToori)  
 💬 Telegram: [@AliToori](https://t.me/@AliToori)  
