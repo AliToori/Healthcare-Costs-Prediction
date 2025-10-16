@@ -94,7 +94,7 @@ insurance.csv: Contains features (age, sex, bmi, children, smoker, region) and t
 
 ## Contributing
 Contributions are welcome! To contribute:
-1. Fork the repository (if you export the notebook to GitHub): https://github.com/AliToori/Book-Recommendation-Engine-KNN
+1. Fork the repository: [https://github.com/AliToori/Healthcare-Costs-Prediction](https://github.com/AliToori/Healthcare-Costs-Prediction)
 2. Create a feature branch (`git checkout -b feature-name`).
 3. Commit changes (`git commit -m "Add feature"`).
 4. Push to the branch (`git push origin feature-name`).
