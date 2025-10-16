@@ -62,34 +62,19 @@ insurance.csv: Contains features (age, sex, bmi, children, smoker, region) and t
 ---
 
 ## Usage
-### Python Script
-1. Save `HealthcareCostsPredictor.py` locally.
-2. Install required libraries:
-   ```bash
-   pip install pandas numpy tensorflow scikit-learn matplotlib
-   ```
-3. Run the script:
-   ```bash
-   python HealthcareCostsPredictor.py
-   ```
-4. The script will:
-   - Download the dataset if not already present
-   - Preprocess data (encode categorical variables, normalize features, split into 80% train/20% test)
-   - Build and train a TensorFlow Linear Regression model
-   - Evaluate the model (prints MAE, typically ~2000-2500)
-   - Display a scatter plot of predicted vs. actual expenses
-
-### Colab Notebook (Optional)
-1. Open the Colab notebook: [Link to your notebook, e.g., https://colab.research.google.com/drive/1YhqiUuH22rZCzQpfbL8msT8cHZ4J_uGR]
+1. Open the provided Colab notebook: https://colab.research.google.com/github/freeCodeCamp/boilerplate-book-recommendation-engine/blob/master/fcc_book_recommendation_knn.ipynb
 2. Save a copy to your Google Drive (**File > Save a copy in Drive**).
 3. Enable GPU for faster training (**Runtime > Change runtime type > GPU**).
 4. Run all cells sequentially:
-   - Cell 1: Import libraries and install tensorflow-docs
-   - Cell 2: Load the dataset
-   - Cell 3: Preprocess data and train the model
-   - Cell 4: Evaluate the model and visualize results
-5. Ensure the notebook’s sharing settings are “anyone with the link” for submission.
-
+    - Cells 1-3: Import libraries and load the Book-Crossings dataset.
+    - Cell 4: Preprocess data (filter users and books based on rating thresholds).
+    - Cell 5: Create a pivot table of user-book ratings and fit the KNN model.
+    - Cell 6: Define the get_recommends function to return similar books.
+    - Cell 7: Test the function with the provided test case.
+5. If the test fails, debug the get_recommends function by checking:
+    - Data filtering logic (thresholds for users and books)
+    - KNN model parameters (e.g., distance metric, number of neighbors)
+    - Handling of edge cases (e.g., book not found in dataset)
 ---
 
 ## Contributing
